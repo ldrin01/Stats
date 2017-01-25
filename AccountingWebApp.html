@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calculator</title>
+	<style type="text/css">
+		body{
+			margin: 3%;
+		}
+		#groupTable{
+			visibility: hidden
+		}
+		table {
+		    border-collapse: collapse;
+		}
+		table, th, td{
+   			border: 1px solid black;
+		}
+		input, button{
+			font-size: 12px;
+		    font-family: Sans-serif;
+		    white-space: pre;
+		    padding: 5px;
+		    overflow: hidden;
+		    margin: 0 0 2% 2%;
+		}
+		table input{
+		    width: 50px;
+		    margin: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="createTable">
+		<h1 id="abc">How many rows?</h1>
+		<input type="number" name="rowNum" id="val">
+		<input type="submit" name="OK" onclick="createTable()">
+	</div>
+	<div id="groupTable">
+	<h1 id="abc123"></h1>
+		<button id="insertRow" value="insertRow" onclick="insertRow()">Insert Row</button>
+		<button value="initiate" onclick="initiate()" id="startComputing">Start Computing</button>
+		<table id="mainTable">
+			<tr>
+				<th>Class Intervals</th>
+				<th>f</th>
+			</tr>
+		</table>
+	</div>
+
+	<script type="text/javascript">
+	// copyright ELDRIN BERNARDINO
+	var q;
+	function createTable(){
+		q = document.getElementById("val").value;
+		document.getElementById("createTable").remove();
+		document.getElementById("groupTable").style = "visibility: visible";
+		for (var i = 1; i <= q; i++) {
+			var table = document.getElementById("mainTable");
+		    var row = table.insertRow(document.getElementById("mainTable").length);
+		    var cell1 = row.insertCell(0);
+		    var cell2 = row.insertCell(1);
+		    cell1.innerHTML = '<input id="a"> - <input id="b">';
+		    cell2.innerHTML = '<input id="c">';
+
+			document.getElementById("a").id = "a"+i;
+			document.getElementById("b").id = "b"+i;
+			document.getElementById("c").id = "c"+i;
+		}
+		q = parseInt(q);
+	}
+	function insertRow(){
+		var e = document.getElementById("mainTable").length;
+		var table = document.getElementById("mainTable");
+	    var row = table.insertRow(e);
+	    var cell1 = row.insertCell(0);
+	    var cell2 = row.insertCell(1);
+	    cell1.innerHTML = '<input id="a"> - <input id="b">';
+	    cell2.innerHTML = '<input id="c">';
+
+	    var i = q+1;	
+		document.getElementById("a").id = "a"+i;
+		document.getElementById("b").id = "b"+i;
+		document.getElementById("c").id = "c"+i;
+		q += 1;
+	}
+	function initiate(){
+		document.getElementById("insertRow").remove();
+		document.getElementById("startComputing").remove();
+		findXMarks();
+		findFX();
+		findD();
+		findFD();
+		findFLess();
+		findFMore();
+	}
+
+
+
+
+	function findXMarks(){
+		var a = document.getElementById("mainTable").length;
+		var table = document.getElementById("mainTable");
+		for (var i = 0; i <= q; i++){
+		    if (i == 0) {
+		    	var tr = document.getElementById('mainTable').rows[i];
+    			tr.insertCell(2).outerHTML = "<th>x</th>"
+		    } else {
+	    		var row = document.getElementById("mainTable").rows[i];
+			    var cell = row.insertCell(2);
+			    cell.innerHTML = '<input id="d">';
+				document.getElementById("d").id = "d"+i;
+			}
+		}
+		for (var i = 1; i <= q; i++){
+			var ford = "d"+i;
+			var fora = "a"+i;
+			var forb = "b"+i;
+			var vala = document.getElementById(fora).value;
+			var valb = document.getElementById(forb).value;
+			vala = parseInt(vala);
+			valb = parseInt(valb);
+			document.getElementById(ford).value = (vala + valb)/2;
+			vala = 0;
+			valb = 0;
+		}
+	}
+
+	function findFX(){
+		for (var i = 0; i <= q; i++){
+		    if (i == 0) {
+		    	var tr = document.getElementById('mainTable').rows[i];
+    			tr.insertCell(3).outerHTML = "<th>fx</th>"
+		    } else {
+	    		var row = document.getElementById("mainTable").rows[i];
+			    var cell = row.insertCell(3);
+			    cell.innerHTML = '<input id="e">';
+				document.getElementById("e").id = "e"+i;
+			}
+		}
+		for (var i = 1; i <= q; i++){
+			var fore = "e"+i;
+			var forc = "c"+i;
+			var ford = "d"+i;
+			// document.getElementById(fore).value = valc*vald;
+			var valc = document.getElementById(forc).value;
+			var vald = document.getElementById(ford).value;
+			valc = parseInt(valc);
+			vald = parseInt(vald);
+			document.getElementById(fore).value = valc*vald;
+			valc = 0;
+			vald = 0;
+		}
+	}
+
+	function findD(){
+		for (var i = 0; i <= q; i++){
+		    if (i == 0) {
+		    	var tr = document.getElementById('mainTable').rows[i];
+    			tr.insertCell(4).outerHTML = "<th>d</th>"
+		    } else {
+	    		var row = document.getElementById("mainTable").rows[i];
+			    var cell = row.insertCell(4);
+			    cell.innerHTML = '<input id="f">';
+				document.getElementById("f").id = "f"+i;
+			}
+		}
+		var hiF = 0;
+		var max = 0;
+		for (var i = 1; i <= q; i++){
+			var forc = "c"+i;
+			var valc = document.getElementById(forc).value;
+			valc = parseInt(valc);
+			if (valc > max) {
+				max = valc;
+				hiF = i;
+			}
+			valc1 = 0;
+		}
+		var zero = "f"+hiF;
+		document.getElementById(zero).value = 0;
+		var temp = 1;
+		for (var i = hiF-1; i > 0; i--){
+			var forf = "f"+i;
+			document.getElementById(forf).value = 0-temp;
+			temp++;
+		}
+		temp = 1;
+		for (var i = hiF+1; i <= q; i++){
+			var forf = "f"+i;
+			document.getElementById(forf).value = temp;
+			temp++;
+		}
+	}
+
+	function findFD(){
+		for (var i = 0; i <= q; i++){
+		    if (i == 0) {
+		    	var tr = document.getElementById('mainTable').rows[i];
+    			tr.insertCell(5).outerHTML = "<th>fd</th>"
+		    } else {
+	    		var row = document.getElementById("mainTable").rows[i];
+			    var cell = row.insertCell(5);
+			    cell.innerHTML = '<input id="g">';
+				document.getElementById("g").id = "g"+i;
+			}
+		}
+		for (var i = 1; i <= q; i++){
+			var forg = "g"+i;
+			var forf = "f"+i;
+			var forc = "c"+i;
+			var valf = document.getElementById(forf).value;
+			var valc = document.getElementById(forc).value;
+			valf = parseInt(valf);
+			valc = parseInt(valc);
+			document.getElementById(forg).value = valf*valc;
+			valf = 0;
+			valc = 0;
+		}
+	}
+	var n = 0;
+	function findFLess(){
+		for (var i = 0; i <= q; i++){
+		    if (i == 0) {
+		    	var tr = document.getElementById('mainTable').rows[i];
+    			tr.insertCell(6).outerHTML = "<th>F<</th>"
+		    } else {
+	    		var row = document.getElementById("mainTable").rows[i];
+			    var cell = row.insertCell(6);
+			    cell.innerHTML = '<input id="h">';
+				document.getElementById("h").id = "h"+i;
+			}
+		}
+		var temp = 0;
+		for (var i = 1; i <= q; i++){
+			var forh = "h"+i;
+			var forc = "c"+i;
+			var valc = document.getElementById(forc).value;
+			valc = parseInt(valc);
+			temp += valc;
+			document.getElementById(forh).value = temp;
+			valc = 0;
+		}
+		n = temp;
+	}
+
+	function findFMore(){
+		for (var i = 0; i <= q; i++){
+		    if (i == 0) {
+		    	var tr = document.getElementById('mainTable').rows[i];
+    			tr.insertCell(7).outerHTML = "<th>F></th>"
+		    } else {
+	    		var row = document.getElementById("mainTable").rows[i];
+			    var cell = row.insertCell(7);
+			    cell.innerHTML = '<input id="i">';
+				document.getElementById("i").id = "i"+i;
+			}
+		}
+		var temp = n
+		for (var i = 1; i <= q; i++){
+			var fori = "i"+i;
+			var forc = "c"+i;
+			var valc = document.getElementById(forc).value;
+			valc = parseInt(valc);
+			document.getElementById(fori).value = temp;
+			temp -= valc;
+			valc = 0;
+		}
+	}
+
+	</script>
+</body>
+</html>
