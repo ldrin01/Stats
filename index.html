@@ -49,6 +49,7 @@
 	var q;
 	function createTable(){
 		q = document.getElementById("val").value;
+		document.getElementById("createTable").remove();
 		for (var i = 1; i <= q; i++) {
 			var table = document.getElementById("mainTable");
 		    var row = table.insertRow(document.getElementById("mainTable").length);
