@@ -65,7 +65,8 @@
 		q = parseInt(q);
 	}
 	function insertRow(){
-	    var i = q+1;	
+		q += 1;
+	    var i = q;	
 		var e = document.getElementById("mainTable").length;
 		var table = document.getElementById("mainTable");
 	    var row = table.insertRow(i);
