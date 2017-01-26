@@ -6,9 +6,6 @@
 		body{
 			margin: 3%;
 		}
-		#groupTable{
-			visibility: hidden
-		}
 		table {
 		    border-collapse: collapse;
 		}
@@ -27,15 +24,12 @@
 		    width: 50px;
 		    margin: 0;
 		}
-		#ok{
-			visibility: hidden;
-		}
 	</style>
 </head>
 <body>
 	<div id="createTable">
 		<h1 id="abc">How many rows?</h1>
-		<input type="number" name="rowNum" id="val" oninput="show(value)">
+		<input type="number" name="rowNum" id="val">
 		<input type="submit" name="OK" id="ok" onclick="createTable()">
 	</div>
 	<div id="groupTable">
@@ -51,19 +45,10 @@
 	</div>
 
 	<script type="text/javascript">
-	function show(value){
-		if (value != 0) {
-			document.getElementById("ok").style = "visibility: visible";
-		} else {
-			document.getElementById("ok").style = "visibility: hidden";
-		}
-	}
 	// copyright ELDRIN BERNARDINO
 	var q;
 	function createTable(){
 		q = document.getElementById("val").value;
-		document.getElementById("createTable").remove();
-		document.getElementById("groupTable").style = "visibility: visible";
 		for (var i = 1; i <= q; i++) {
 			var table = document.getElementById("mainTable");
 		    var row = table.insertRow(document.getElementById("mainTable").length);
